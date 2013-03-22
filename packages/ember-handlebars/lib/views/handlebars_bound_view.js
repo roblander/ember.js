@@ -44,12 +44,18 @@ SimpleHandlebarsView.prototype = {
   normalizedValue: function() {
     var path = this.path,
         pathRoot = this.pathRoot,
+        type = this.type,
         result, templateData;
 
     // Use the pathRoot as the result if no path is provided. This
     // happens if the path is `this`, which gets normalized into
     // a `pathRoot` of the current Handlebars context and a path
     // of `''`.
+    
+    if (type == "STRING") {
+      return path;
+    }
+    
     if (path === '') {
       result = pathRoot;
     } else {

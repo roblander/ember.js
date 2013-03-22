@@ -343,6 +343,7 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
       property = normalizePath(context, boundOptions[boundOption], data);
       bindView.path = property.path;
       bindView.pathRoot = property.root;
+      bindView.type = "ID";
       hash[boundOption] = Ember._SimpleHandlebarsView.prototype.normalizedValue.call(bindView);
     }
 
@@ -350,6 +351,7 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
       property = normalizedProperties[loc];
       bindView.path = property.path;
       bindView.pathRoot = property.root;
+      bindView.type = options.types[loc];
       args.push(Ember._SimpleHandlebarsView.prototype.normalizedValue.call(bindView));
     }
     args.push(options);
@@ -395,7 +397,8 @@ function evaluateUnboundHelper(context, fn, normalizedProperties, options) {
 
   for(loc = 0, len = normalizedProperties.length; loc < len; ++loc) {
     property = normalizedProperties[loc];
-    args.push(Ember.Handlebars.get(context, property.path, options));
+    type     = options.types[loc + (options.types.length - normalizedProperties.length)];
+    args.push(type == "ID" ? Ember.Handlebars.get(property.root, property.path, options) : property.path);
   }
   args.push(options);
   return fn.apply(context, args);
