@@ -372,7 +372,11 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
   // Observe each property.
   for (loc = 0, len = watchedProperties.length; loc < len; ++loc) {
     property = watchedProperties[loc];
-    view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    var type = options.types[loc];
+    
+    if (type != "STRING") {
+      view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    }
   }
 
 }
