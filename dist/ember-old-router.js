@@ -151,8 +151,8 @@ Ember.deprecateFunc = function(message, func) {
 
 })();
 
-// Version: v1.0.0-rc.1-219-g356f147
-// Last commit: 356f147 (2013-03-23 01:31:55 +0300)
+// Version: v1.0.0-rc.1-221-gd8bce73
+// Last commit: d8bce73 (2013-05-03 16:31:04 +0300)
 
 
 (function() {
@@ -19557,7 +19557,10 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
   // Observe each property.
   for (loc = 0, len = watchedProperties.length; loc < len; ++loc) {
     property = watchedProperties[loc];
-    view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    
+    if (property.isKeyword) {
+      view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    }
   }
 
 }

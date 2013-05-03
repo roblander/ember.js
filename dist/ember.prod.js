@@ -18135,7 +18135,10 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
   // Observe each property.
   for (loc = 0, len = watchedProperties.length; loc < len; ++loc) {
     property = watchedProperties[loc];
-    view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    
+    if (property.isKeyword) {
+      view.registerObserver(property.root, property.path, bindView, bindView.rerender);
+    }
   }
 
 }
