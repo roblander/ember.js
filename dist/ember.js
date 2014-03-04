@@ -12941,7 +12941,7 @@ var setInnerHTMLWithoutFix = function(element, html) {
 /*** END METAMORPH HELPERS */
 
 
-var innerHTMLTags = {};
+var innerHTMLTags = {"TABLE": false, "TR": false, "TD": false, "THEAD": false, "TBODY": false, "TH": false};
 var canSetInnerHTML = function(tagName) {
   if (innerHTMLTags[tagName] !== undefined) {
     return innerHTMLTags[tagName];
